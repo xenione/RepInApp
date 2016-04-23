@@ -22,15 +22,15 @@ import static org.mockito.Mockito.when;
  */
 public class RepositoryTest {
 
-    private BaseRepository baseRepository;
-    private DataSource dataSource;
-    private Matchable matchable;
+    private BaseRepository<Object> baseRepository;
+    private DataSource<Object> dataSource;
+    private Matchable<Object> matchable;
     private Object object = new Object();
 
     @Before
     public void setup() {
+        baseRepository = new BaseRepository<>(dataSource);
         dataSource = mock(DataSource.class);
-        baseRepository = new BaseRepository(dataSource);
         matchable = mock(Matchable.class);
     }
 
@@ -43,10 +43,9 @@ public class RepositoryTest {
     @Test
     public void matchSingleTest() {
         Object dataRecordOne = new Object();
-        Object dataRecordTwo = new Object();
-        List list = new ArrayList();
+        List<Object> list = new ArrayList<>();
         list.add(dataRecordOne);
-        list.add(dataRecordTwo);
+        list.add(object);
         when(dataSource.selector(any(Matchable.class))).thenReturn(list);
         Object retrieved = baseRepository.matchSingle(matchable);
         assertEquals(dataRecordOne, retrieved);
