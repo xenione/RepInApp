@@ -29,9 +29,9 @@ public class RepositoryTest {
 
     @Before
     public void setup() {
-        baseRepository = new BaseRepository<>(dataSource);
         dataSource = mock(DataSource.class);
         matchable = mock(Matchable.class);
+        baseRepository = new BaseRepository<>(dataSource);
     }
 
     @Test
