@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import apps.xenione.com.repoinapp.lib.BaseRepository;
-import apps.xenione.com.repoinapp.lib.DataSource;
+import apps.xenione.com.repoinapp.lib.datasource.DataSource;
 import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 
 import static junit.framework.Assert.assertEquals;

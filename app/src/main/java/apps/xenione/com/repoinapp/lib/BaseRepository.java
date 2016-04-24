@@ -2,6 +2,7 @@ package apps.xenione.com.repoinapp.lib;
 
 import java.util.List;
 
+import apps.xenione.com.repoinapp.lib.datasource.DataSource;
 import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 
 public class BaseRepository<T> {
@@ -22,6 +23,10 @@ public class BaseRepository<T> {
             return null;
         }
         return matches.get(0);
+    }
+
+    public List<T> findAll(){
+        return mDataSource.findAll();
     }
 
     public boolean update(T t) {

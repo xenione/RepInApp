@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import apps.xenione.com.repoinapp.lib.DataSource;
 import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 
 /**
@@ -31,6 +30,17 @@ public class InAppDataSource<T extends DataObject> implements DataSource<T> {
             if (criteria.match(register)) {
                 list.add(register);
             }
+        }
+        return list;
+    }
+
+    @Override
+    public List<T> findAll() {
+        Map<String, String> map = helper.getAll();
+        List<T> list = new ArrayList<>(map.size());
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            T register = DataObject.from(type, entry.getValue());
+            list.add(register);
         }
         return list;
     }
