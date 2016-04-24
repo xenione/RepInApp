@@ -5,7 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import org.junit.Before;
 import org.junit.Test;
 
-import apps.xenione.com.repoinapp.lib.Matchable;
+import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 import apps.xenione.com.repoinapp.lib.datasource.DataObject;
 import apps.xenione.com.repoinapp.lib.datasource.InAppDataSource;
 

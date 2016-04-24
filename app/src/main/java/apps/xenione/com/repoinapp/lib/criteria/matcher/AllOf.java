@@ -1,6 +1,6 @@
-package apps.xenione.com.repoinapp.lib.matcher;
+package apps.xenione.com.repoinapp.lib.criteria.matcher;
 
-import apps.xenione.com.repoinapp.lib.Matchable;
+import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 
 public class AllOf<T> implements Matchable<T> {
 

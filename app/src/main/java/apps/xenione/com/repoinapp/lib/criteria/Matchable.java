@@ -1,4 +1,4 @@
-package apps.xenione.com.repoinapp.lib;
+package apps.xenione.com.repoinapp.lib.criteria;
 
 /**
  * Created by Eugeni on 24/03/2016.

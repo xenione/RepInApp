@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import apps.xenione.com.repoinapp.lib.DataSource;
-import apps.xenione.com.repoinapp.lib.Matchable;
+import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 
 /**
  * Created by Eugeni on 28/02/2016.

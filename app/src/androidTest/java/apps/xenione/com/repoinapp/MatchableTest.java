@@ -3,16 +3,16 @@ package apps.xenione.com.repoinapp;
 import org.junit.Before;
 import org.junit.Test;
 
-import apps.xenione.com.repoinapp.lib.Matchable;
+import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 
+import static apps.xenione.com.repoinapp.lib.criteria.matcher.AllOf.allOf;
+import static apps.xenione.com.repoinapp.lib.criteria.matcher.AnyOf.anyOf;
+import static apps.xenione.com.repoinapp.lib.criteria.matcher.ApproxOf.approxOf;
+import static apps.xenione.com.repoinapp.lib.criteria.matcher.EndsWith.endsWith;
+import static apps.xenione.com.repoinapp.lib.criteria.matcher.Interval.interval;
+import static apps.xenione.com.repoinapp.lib.criteria.matcher.SameObjectAs.sameAs;
+import static apps.xenione.com.repoinapp.lib.criteria.matcher.StartsWith.startWith;
 import static junit.framework.Assert.assertTrue;
-import static apps.xenione.com.repoinapp.lib.matcher.StartsWith.startWith;
-import static apps.xenione.com.repoinapp.lib.matcher.EndsWith.endsWith;
-import static apps.xenione.com.repoinapp.lib.matcher.SameObjectAs.sameAs;
-import static apps.xenione.com.repoinapp.lib.matcher.Interval.interval;
-import static apps.xenione.com.repoinapp.lib.matcher.ApproxOf.approxOf;
-import static apps.xenione.com.repoinapp.lib.matcher.AllOf.allOf;
-import static apps.xenione.com.repoinapp.lib.matcher.AnyOf.anyOf;
 
 /**
  * Created by Eugeni on 24/03/2016.
