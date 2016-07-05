@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import apps.xenione.com.repoinapp.lib.BaseRepository;
-import apps.xenione.com.repoinapp.lib.datasource.DataSource;
 import apps.xenione.com.repoinapp.lib.criteria.Matchable;
+import apps.xenione.com.repoinapp.lib.criteria.matcher.Any;
+import apps.xenione.com.repoinapp.lib.datasource.DataObject;
+import apps.xenione.com.repoinapp.lib.datasource.DataSource;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -27,6 +29,7 @@ public class RepositoryTest {
     private Matchable<Object> matchable;
     private Object object = new Object();
 
+
     @Before
     public void setup() {
         dataSource = mock(DataSource.class);
@@ -37,40 +40,60 @@ public class RepositoryTest {
     @Test
     public void matchTest() {
         baseRepository.match(matchable);
-        verify(dataSource).selector(same(matchable));
+        verify(dataSource).select(same(matchable));
     }
 
     @Test
     public void matchSingleTest() {
-        Object dataRecordOne = new Object();
-        List<Object> list = new ArrayList<>();
+        List<DataObject> list = new ArrayList<>();
+        Object object = new Object();
+        DataObject dataRecordOne = DataObject.from(object);
         list.add(dataRecordOne);
-        list.add(object);
-        when(dataSource.selector(any(Matchable.class))).thenReturn(list);
+        when(dataSource.select(any(Matchable.class))).thenReturn(list);
         Object retrieved = baseRepository.matchSingle(matchable);
-        assertEquals(dataRecordOne, retrieved);
+        assertEquals(object, retrieved);
     }
 
     @Test
-    public void updateTest() {
+    public void returnSameObjectInstanceFromTwoQueries() {
+        List<DataObject> list = new ArrayList<>();
+        list.add(DataObject.from(new Object()));
+        when(dataSource.select(any(Matchable.class))).thenReturn(list);
+        Object retrieved1 = baseRepository.matchSingle(Any.any());
+        Object retrieved2 = baseRepository.matchSingle(Any.any());
+        assertEquals(retrieved1, retrieved2);
+    }
+
+    @Test
+    public void updateObjectAndPersistTest() {
         baseRepository.update(object);
-        verify(dataSource).update(same(object));
+        verify(dataSource).update(any(DataObject.class));
     }
 
     @Test
-    public void saveTest() {
+    public void saveObjectAndPersistTest() {
         baseRepository.save(object);
-        verify(dataSource).save(same(object));
+        verify(dataSource).save(any(DataObject.class));
     }
 
     @Test
-    public void deleteTest() {
+    public void saveObjectAndRetrieveSameInstanceTest() {
+        List list = new ArrayList();
+        list.add(DataObject.from(object));
+        when(dataSource.select(any(Matchable.class))).thenReturn(list);
+        baseRepository.save(object);
+        Object objectRetrieved = baseRepository.matchSingle(Any.any());
+        assertEquals(object, objectRetrieved);
+    }
+
+    @Test
+    public void deleteObjectAndPersistTest() {
         baseRepository.delete(object);
-        verify(dataSource).delete(same(object));
+        verify(dataSource).delete(any(DataObject.class));
     }
 
     @Test
-    public void deleteAll() {
+    public void deleteAllTest() {
         baseRepository.delete();
         verify(dataSource).clear();
     }

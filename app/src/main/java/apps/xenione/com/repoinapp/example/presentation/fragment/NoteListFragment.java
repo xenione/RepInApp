@@ -108,7 +108,7 @@ public class NoteListFragment extends Fragment implements NewNoteDialog.NewNoteC
         note.setId(1);
         note.setDescription(body);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("note", note);
+        bundle.putSerializable("note", null);
         getLoaderManager().initLoader(2, bundle, noteAddedLoaderCallback);
     }
 

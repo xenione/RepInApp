@@ -1,29 +1,16 @@
 package apps.xenione.com.repoinapp.data;
 
 
-import apps.xenione.com.repoinapp.lib.datasource.DataObject;
-
 /**
  * Created by Eugeni on 25/03/2016.
  */
-public class Root extends DataObject {
-
-    private long id;
+public class Root {
 
     private String propertyOne;
 
     private String propertyTwo;
 
     private Dependent dependent;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        _id = id;
-        this.id = id;
-    }
 
     public String getPropertyOne() {
         return propertyOne;

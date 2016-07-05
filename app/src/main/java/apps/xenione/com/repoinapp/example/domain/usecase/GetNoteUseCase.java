@@ -19,6 +19,6 @@ public class GetNoteUseCase implements Callable<List<Note>> {
 
     @Override
     public List<Note> call() throws Exception {
-        return noteRepository.findAll();
+        return null;
     }
 }

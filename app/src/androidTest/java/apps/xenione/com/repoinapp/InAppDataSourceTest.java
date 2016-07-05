@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import org.junit.Before;
 import org.junit.Test;
 
+import apps.xenione.com.repoinapp.data.Root;
 import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 import apps.xenione.com.repoinapp.lib.datasource.DataObject;
 import apps.xenione.com.repoinapp.lib.datasource.InAppDataSource;
@@ -24,11 +25,9 @@ public class InAppDataSourceTest {
 
     @Before
     public void setup() {
-        inAppDataSource = new InAppDataSource(InstrumentationRegistry.getContext(), DataObject.class);
-        DataObject dataObject1 = new DataObject();
-        dataObject1._id = 1;
-        DataObject dataObject2 = new DataObject();
-        dataObject2._id = 2;
+        inAppDataSource = new InAppDataSource(InstrumentationRegistry.getContext(), Root.class);
+        DataObject dataObject1 = DataObject.from(new Root());
+        DataObject dataObject2 = DataObject.from(new Root());
         inAppDataSource.save(dataObject1);
         inAppDataSource.save(dataObject2);
         matchable = mock(Matchable.class);
@@ -36,7 +35,7 @@ public class InAppDataSourceTest {
 
     @Test
     public void selectorTest() {
-        inAppDataSource.selector(matchable);
+        inAppDataSource.select(matchable);
         verify(matchable, times(2)).match(any(DataObject.class));
     }
 

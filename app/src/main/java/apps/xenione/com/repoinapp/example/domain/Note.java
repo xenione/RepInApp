@@ -1,10 +1,6 @@
 package apps.xenione.com.repoinapp.example.domain;
 
-import java.io.Serializable;
-
-import apps.xenione.com.repoinapp.lib.datasource.DataObject;
-
-public class Note extends DataObject implements Serializable {
+public class Note {
 
     private long id;
 
@@ -14,13 +10,11 @@ public class Note extends DataObject implements Serializable {
 
     private Location location;
 
-
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
-        _id = id;
         this.id = id;
     }
 

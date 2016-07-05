@@ -11,54 +11,43 @@ import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 /**
  * Created by Eugeni on 28/02/2016.
  */
-public class InAppDataSource<T extends DataObject> implements DataSource<T> {
+public class InAppDataSource<T> implements DataSource<T> {
 
     private SharePreferenceHelper helper;
     private Class<T> type;
 
     public InAppDataSource(Context context, Class<T> type) {
-        helper = new SharePreferenceHelper(context, "inAppDB");
         this.type = type;
+        helper = new SharePreferenceHelper(context, "inAppDB");
     }
 
     @Override
-    public List<T> selector(Matchable<T> criteria) {
+    public List<DataObject<T>> select(Matchable<T> criteria) {
         Map<String, String> map = helper.getAll();
-        List<T> list = new ArrayList<>();
+        List<DataObject<T>> list = new ArrayList<>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            T register = DataObject.from(type, entry.getValue());
-            if (criteria.match(register)) {
-                list.add(register);
+            DataObject<T> dataObject = DataObject.from(type, entry.getValue());
+            if (criteria.match(dataObject.target)) {
+                list.add(dataObject);
             }
         }
         return list;
     }
 
     @Override
-    public List<T> findAll() {
-        Map<String, String> map = helper.getAll();
-        List<T> list = new ArrayList<>(map.size());
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            T register = DataObject.from(type, entry.getValue());
-            list.add(register);
-        }
-        return list;
-    }
-
-    @Override
-    public boolean update(T t) {
+    public boolean update(DataObject<T> t) {
         helper.put(t._id, t.serialize());
         return true;
     }
 
     @Override
-    public long save(T t) {
+    public long save(DataObject<T> t) {
         helper.put(t._id, t.serialize());
         return t._id;
     }
 
     @Override
-    public void delete(T t) {
+    public void delete(DataObject<T> t) {
         helper.remove(t._id);
     }
 

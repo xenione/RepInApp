@@ -7,15 +7,13 @@ import apps.xenione.com.repoinapp.lib.criteria.Matchable;
 
 public interface DataSource<T> {
 
-    List<T> selector(Matchable<T> criteria);
+    List<DataObject<T>> select(Matchable<T> criteria);
 
-    List<T> findAll();
+    boolean update(DataObject<T> t);
 
-    boolean update(T t);
+    long save(DataObject<T> t);
 
-    long save(T t);
-
-    void delete(T t);
+    void delete(DataObject<T> t);
 
     void clear();
 }
