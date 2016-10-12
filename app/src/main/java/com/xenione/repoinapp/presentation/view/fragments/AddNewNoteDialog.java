@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 import com.xenione.repoinapp.R;
 import com.xenione.repoinapp.cuore.Note;
+import com.xenione.repoinapp.presentation.App;
 import com.xenione.repoinapp.presentation.presenters.NewNotePresenter;
 import com.xenione.repoinapp.presentation.view.contracts.AddNewNoteContract;
 import com.xenione.repoinapp.presentation.view.widgets.FieldView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
 
 /**
  * Created by Eugeni on 24/04/2016.
@@ -84,7 +84,7 @@ public class AddNewNoteDialog extends DialogFragment implements AddNewNoteContra
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter = new NewNotePresenter(getActivity());
+        presenter = new NewNotePresenter(App.getLoaderManager(getActivity()));
         presenter.bind(this);
         presenter.init();
     }
@@ -109,7 +109,7 @@ public class AddNewNoteDialog extends DialogFragment implements AddNewNoteContra
         public void onClick(View v) {
             String title = titleText.getText();
             String body = bodyText.getText();
-            presenter.save(new Note(title, body));
+            presenter.execute(App.getAddNoteUseCase(getActivity(), new Note(title, body)));
         }
     };
 

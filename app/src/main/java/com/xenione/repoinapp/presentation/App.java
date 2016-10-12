@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 
+import com.google.gson.reflect.TypeToken;
+import com.xenione.libs.repoinapp.datasource.DataObject;
+import com.xenione.libs.repoinapp.datasource.InAppDataSource;
 import com.xenione.repoinapp.cuore.Note;
 import com.xenione.repoinapp.cuore.NoteRepository;
 import com.xenione.repoinapp.cuore.NoteRepositoryImpl;
@@ -23,7 +26,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mNoteRepository = new NoteRepositoryImpl();
+        mNoteRepository = new NoteRepositoryImpl(new InAppDataSource<Note>(this, new TypeToken<DataObject<Note>>() {
+        }.getType()));
     }
 
     public static NoteRepository getNoteRepository(Context context) {

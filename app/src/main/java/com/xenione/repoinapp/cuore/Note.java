@@ -11,6 +11,14 @@ public class Note {
 
     long mCreateDate;
 
+    private Location mLocation;
+
+    public Note(String title, String description) {
+        mTitle = title;
+        mDescription = description;
+        mCreateDate = System.currentTimeMillis();
+    }
+
     public String getTitle() {
         return mTitle;
     }
@@ -27,9 +35,7 @@ public class Note {
         mDescription = description;
     }
 
-    public Note(String title, String description) {
-        mTitle = title;
-        mDescription = description;
-        mCreateDate = System.currentTimeMillis();
+    public void setLocation(String cityName, String state, String country) {
+        mLocation = new Location(cityName, state, country);
     }
 }

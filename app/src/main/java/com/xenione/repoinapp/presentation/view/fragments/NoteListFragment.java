@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.xenione.repoinapp.R;
+import com.xenione.repoinapp.presentation.App;
 import com.xenione.repoinapp.presentation.adapters.NoteAdapter;
 import com.xenione.repoinapp.presentation.presenters.NoteListPresenter;
 import com.xenione.repoinapp.presentation.view.contracts.NoteListContract;
@@ -71,9 +72,9 @@ public class NoteListFragment extends Fragment implements NoteListContract {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter = new NoteListPresenter(getActivity());
+        presenter = new NoteListPresenter(App.getLoaderManager(getActivity()));
         presenter.bind(this);
-        presenter.init();
+        presenter.execute(App.getGetNoteUseCase(getActivity()));
     }
 
     @Override

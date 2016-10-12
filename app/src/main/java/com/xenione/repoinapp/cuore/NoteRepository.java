@@ -10,5 +10,11 @@ public interface NoteRepository {
 
     List<Note> getAllOrderByDate();
 
-    boolean save(Note note);
+    List<Note> getNoteByTitle(String contains);
+
+    List<Note> getNotesByTitleOrDescription(String contains);
+
+    List<Note> getNotesByLocation(String cityName);
+
+    void store(Note note);
 }

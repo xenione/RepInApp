@@ -43,7 +43,7 @@ public class BaseRepository<T> {
         return matches.get(0);
     }
 
-    public T fallback(Matchable<T> someCriteria){
+    public T fallback(Matchable<T> someCriteria) {
         return null;
     }
 

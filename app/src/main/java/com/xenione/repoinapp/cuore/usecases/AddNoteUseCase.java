@@ -26,6 +26,6 @@ public class AddNoteUseCase implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        mNoteRepository.save(mNote);
+        mNoteRepository.store(mNote);
     }
 }
