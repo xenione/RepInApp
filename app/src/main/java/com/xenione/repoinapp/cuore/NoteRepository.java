@@ -16,5 +16,7 @@ public interface NoteRepository {
 
     List<Note> getNotesByLocation(String cityName);
 
-    void store(Note note);
+    void save(Note note);
+
+    void delete(Note note);
 }

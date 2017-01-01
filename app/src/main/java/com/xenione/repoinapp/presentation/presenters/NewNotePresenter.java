@@ -1,12 +1,17 @@
 package com.xenione.repoinapp.presentation.presenters;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
+import com.xenione.repoinapp.cuore.Note;
 import com.xenione.repoinapp.infrastructure.loaders.UseCaseLoader;
 import com.xenione.repoinapp.infrastructure.presenters.BasePresenter;
+import com.xenione.repoinapp.presentation.App;
 import com.xenione.repoinapp.presentation.view.contracts.AddNewNoteContract;
+
+import java.util.UUID;
 
 
 /**
@@ -17,16 +22,18 @@ public class NewNotePresenter extends BasePresenter<AddNewNoteContract> {
     public static final int ADD_NEW_NOTE_LOADER_ID = 102;
 
     private LoaderManager mLoaderManager;
+    private Context mContext;
     private Runnable mTask;
 
-    public NewNotePresenter(LoaderManager loaderManager) {
+    public NewNotePresenter(Context context, LoaderManager loaderManager) {
+        mContext = context;
         mLoaderManager = loaderManager;
     }
 
     public void init() {
         if (mLoaderManager.getLoader(ADD_NEW_NOTE_LOADER_ID) != null) {
-            mView.showProgress();
             mLoaderManager.initLoader(ADD_NEW_NOTE_LOADER_ID, null, noteAddedLoaderCallback);
+            mView.showProgress();
         } else {
             mView.showEditNote();
         }
@@ -43,8 +50,8 @@ public class NewNotePresenter extends BasePresenter<AddNewNoteContract> {
         }
     }
 
-    public void execute(Runnable task) {
-        mTask = task;
+    public void addNote(String title, String body) {
+        mTask = App.getAddNoteUseCase(mContext, new Note(UUID.randomUUID().hashCode(), title, body));
         mLoaderManager.restartLoader(ADD_NEW_NOTE_LOADER_ID, null, noteAddedLoaderCallback);
         mView.showProgress();
     }

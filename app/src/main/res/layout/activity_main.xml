@@ -11,6 +11,5 @@
         android:id="@+id/fragment"
         android:name="com.xenione.repoinapp.presentation.view.fragments.NoteListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:layout_height="match_parent" />
 </FrameLayout>

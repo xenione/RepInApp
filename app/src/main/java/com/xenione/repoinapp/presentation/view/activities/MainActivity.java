@@ -38,4 +38,5 @@ public class MainActivity extends AppCompatActivity implements NoteListFragment.
     public void onNewNoteAdded() {
         mNoteListFragment.update();
     }
+
 }

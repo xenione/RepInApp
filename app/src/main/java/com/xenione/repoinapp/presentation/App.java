@@ -6,14 +6,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 
-import com.google.gson.reflect.TypeToken;
-import com.xenione.libs.repoinapp.datasource.DataObject;
-import com.xenione.libs.repoinapp.datasource.InAppDataSource;
 import com.xenione.repoinapp.cuore.Note;
 import com.xenione.repoinapp.cuore.NoteRepository;
 import com.xenione.repoinapp.cuore.NoteRepositoryImpl;
 import com.xenione.repoinapp.cuore.usecases.AddNoteUseCase;
 import com.xenione.repoinapp.cuore.usecases.GetNoteListUseCase;
+
+import java.util.List;
+import java.util.concurrent.Callable;
 
 
 /**
@@ -26,8 +26,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mNoteRepository = new NoteRepositoryImpl(new InAppDataSource<Note>(this, new TypeToken<DataObject<Note>>() {
-        }.getType()));
+        mNoteRepository = new NoteRepositoryImpl(this);
     }
 
     public static NoteRepository getNoteRepository(Context context) {
@@ -42,11 +41,11 @@ public class App extends Application {
         return activity.getSupportFragmentManager();
     }
 
-    public static AddNoteUseCase getAddNoteUseCase(FragmentActivity activity, Note note) {
-        return new AddNoteUseCase(getNoteRepository(activity), note);
+    public static Runnable getAddNoteUseCase(Context context, Note note) {
+        return new AddNoteUseCase(getNoteRepository(context), note);
     }
 
-    public static GetNoteListUseCase getGetNoteUseCase(FragmentActivity activity) {
-        return new GetNoteListUseCase(getNoteRepository(activity));
+    public static Callable<List<Note>> getGetNoteUseCase(Context context) {
+        return new GetNoteListUseCase(getNoteRepository(context));
     }
 }

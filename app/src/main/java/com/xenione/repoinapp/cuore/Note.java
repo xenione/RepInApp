@@ -1,9 +1,11 @@
 package com.xenione.repoinapp.cuore;
 
+import com.xenione.libs.repoinapp.DomainObject;
+
 /**
  * Created by Eugeni on 25/09/2016.
  */
-public class Note {
+public class Note extends DomainObject {
 
     private String mTitle;
 
@@ -13,7 +15,8 @@ public class Note {
 
     private Location mLocation;
 
-    public Note(String title, String description) {
+    public Note(int id, String title, String description) {
+        _id = id;
         mTitle = title;
         mDescription = description;
         mCreateDate = System.currentTimeMillis();

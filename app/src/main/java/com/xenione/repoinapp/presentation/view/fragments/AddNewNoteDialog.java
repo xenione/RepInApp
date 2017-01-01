@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.xenione.repoinapp.R;
-import com.xenione.repoinapp.cuore.Note;
 import com.xenione.repoinapp.presentation.App;
 import com.xenione.repoinapp.presentation.presenters.NewNotePresenter;
 import com.xenione.repoinapp.presentation.view.contracts.AddNewNoteContract;
@@ -84,7 +83,7 @@ public class AddNewNoteDialog extends DialogFragment implements AddNewNoteContra
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter = new NewNotePresenter(App.getLoaderManager(getActivity()));
+        presenter = new NewNotePresenter(getActivity(), App.getLoaderManager(getActivity()));
         presenter.bind(this);
         presenter.init();
     }
@@ -109,7 +108,7 @@ public class AddNewNoteDialog extends DialogFragment implements AddNewNoteContra
         public void onClick(View v) {
             String title = titleText.getText();
             String body = bodyText.getText();
-            presenter.execute(App.getAddNoteUseCase(getActivity(), new Note(title, body)));
+            presenter.addNote(title, body);
         }
     };
 

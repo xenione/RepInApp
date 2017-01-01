@@ -19,13 +19,6 @@ public class AddNoteUseCase implements Runnable {
 
     @Override
     public void run() {
-        // this just give us a delay of 5 secs, time enough
-        // to see how this executable survives to recreation activity/fragment process
-        try {
-            Thread.sleep(5 * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        mNoteRepository.store(mNote);
+        mNoteRepository.save(mNote);
     }
 }

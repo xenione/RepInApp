@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface DataSource<T> {
 
-    List<DataObject<T>> select(Matchable<T> criteria);
+    List<T> select(Matchable<T> criteria);
 
-    boolean update(DataObject<T> t);
+    boolean update(T t);
 
-    long save(DataObject<T> t);
+    long save(T t);
 
-    void delete(DataObject<T> t);
+    void delete(T t);
 
     void clear();
 }

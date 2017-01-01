@@ -1,11 +1,13 @@
 package com.xenione.repoinapp.presentation.presenters;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 
 import com.xenione.repoinapp.cuore.Note;
 import com.xenione.repoinapp.infrastructure.loaders.UseCaseLoader;
 import com.xenione.repoinapp.infrastructure.presenters.BasePresenter;
+import com.xenione.repoinapp.presentation.App;
 import com.xenione.repoinapp.presentation.view.contracts.NoteListContract;
 import com.xenione.repoinapp.presentation.viewModel.NoteViewModel;
 
@@ -21,20 +23,26 @@ public class NoteListPresenter extends BasePresenter<NoteListContract> {
     public static final int LIST_NOTE_LOADER_ID = 101;
 
     private LoaderManager mLoaderManager;
+    private Context mContext;
     private Callable<List<Note>> mTask;
 
-    public NoteListPresenter(LoaderManager loaderManager) {
+    public NoteListPresenter(Context context, LoaderManager loaderManager) {
+        mContext = context;
         mLoaderManager = loaderManager;
     }
 
     public void init() {
-        mView.showProgress();
-        mLoaderManager.initLoader(LIST_NOTE_LOADER_ID, null, getListNoteLoaderCallback);
+       getNoteList();
     }
 
-    public void execute(Callable<List<Note>> task) {
-        mTask = task;
-        init();
+    public void getNoteList() {
+        mTask = App.getGetNoteUseCase(mContext);
+        if (mLoaderManager.getLoader(LIST_NOTE_LOADER_ID) == null) {
+            mLoaderManager.initLoader(LIST_NOTE_LOADER_ID, null, getListNoteLoaderCallback);
+        } else {
+            mLoaderManager.restartLoader(LIST_NOTE_LOADER_ID, null, getListNoteLoaderCallback);
+        }
+        mView.showProgress();
     }
 
     private UseCaseLoader.UseCaseLoaderCallback<List<Note>> getListNoteLoaderCallback = new UseCaseLoader.UseCaseLoaderCallback<List<Note>>() {
