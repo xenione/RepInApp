@@ -6,11 +6,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 
+import com.xenione.libs.repoinapp.datasource.InAppDataSource;
 import com.xenione.repoinapp.cuore.Note;
 import com.xenione.repoinapp.cuore.NoteRepository;
-import com.xenione.repoinapp.cuore.NoteRepositoryImpl;
 import com.xenione.repoinapp.cuore.usecases.AddNoteUseCase;
-import com.xenione.repoinapp.cuore.usecases.GetNoteListUseCase;
+import com.xenione.repoinapp.cuore.usecases.GetAllNotesUseCase;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -26,7 +26,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mNoteRepository = new NoteRepositoryImpl(this);
+        mNoteRepository = new NoteRepository.Impl(new InAppDataSource<>(this, new InAppDataSource.Serializer<>(Note.class)));
     }
 
     public static NoteRepository getNoteRepository(Context context) {
@@ -46,6 +46,6 @@ public class App extends Application {
     }
 
     public static Callable<List<Note>> getGetNoteUseCase(Context context) {
-        return new GetNoteListUseCase(getNoteRepository(context));
+        return new GetAllNotesUseCase(getNoteRepository(context));
     }
 }

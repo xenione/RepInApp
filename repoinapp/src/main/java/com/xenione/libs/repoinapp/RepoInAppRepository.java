@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RepoInAppRepository<T extends DomainObject> {
+public class RepoInAppRepository<T extends DomainObject>  {
 
     private DataSource<T> mDataSource;
 

@@ -6,21 +6,21 @@ import com.xenione.repoinapp.cuore.NoteRepository;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-
-
 /**
- * Created by Eugeni on 24/04/2016.
+ * Created by Eugeni on 01/01/2017.
  */
-public class GetNoteListUseCase implements Callable<List<Note>> {
+public class GetNotesByTitleUseCase implements Callable<List<Note>> {
 
     private NoteRepository mNoteRepository;
+    private String mTitle;
 
-    public GetNoteListUseCase(NoteRepository noteRepository) {
+    public GetNotesByTitleUseCase(NoteRepository noteRepository, String title) {
         mNoteRepository = noteRepository;
+        mTitle = title;
     }
 
     @Override
     public List<Note> call() throws Exception {
-        return mNoteRepository.getAllOrderByDate();
+        return mNoteRepository.getNoteByTitle(mTitle);
     }
 }

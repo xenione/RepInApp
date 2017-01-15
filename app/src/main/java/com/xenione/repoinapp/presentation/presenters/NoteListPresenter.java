@@ -32,16 +32,14 @@ public class NoteListPresenter extends BasePresenter<NoteListContract> {
     }
 
     public void init() {
-       getNoteList();
+        mTask = App.getGetNoteUseCase(mContext);
+        mLoaderManager.initLoader(LIST_NOTE_LOADER_ID, null, getListNoteLoaderCallback);
+        mView.showProgress();
     }
 
     public void getNoteList() {
         mTask = App.getGetNoteUseCase(mContext);
-        if (mLoaderManager.getLoader(LIST_NOTE_LOADER_ID) == null) {
-            mLoaderManager.initLoader(LIST_NOTE_LOADER_ID, null, getListNoteLoaderCallback);
-        } else {
-            mLoaderManager.restartLoader(LIST_NOTE_LOADER_ID, null, getListNoteLoaderCallback);
-        }
+        mLoaderManager.restartLoader(LIST_NOTE_LOADER_ID, null, getListNoteLoaderCallback);
         mView.showProgress();
     }
 
